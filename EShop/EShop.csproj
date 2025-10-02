@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
@@ -68,12 +68,6 @@
 	  <ProjectReference Include="..\EShop.API\EShop.API.csproj" />
 	  <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
 	  <ProjectReference Include="..\EShop.UI\EShop.UI.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="Pages\LoginPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
