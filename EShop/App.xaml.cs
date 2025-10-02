@@ -1,4 +1,4 @@
-﻿using EShop.Pages;
+﻿using EShop.UI.Pages;
 
 namespace EShop
 {
@@ -11,7 +11,7 @@ namespace EShop
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new LoginPage());
+            return new Window(new WelcomePage());
         }
     }
 }
