@@ -65,6 +65,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\EShop.API\EShop.API.csproj" />
+	  <ProjectReference Include="..\EShop.Core\EShop.Core.csproj" />
+	  <ProjectReference Include="..\EShop.UI\EShop.UI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Pages\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
