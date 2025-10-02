@@ -4,4 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <Style x:Key="LoginBorderStyle" TargetType="Border">
+        <Setter Property="Stroke" Value="{StaticResource AppBorderStrockColor}" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="12" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="{StaticResource AppBackgroundColor}" />
+        <Setter Property="Padding" Value="25" />
+        <Setter Property="Margin" Value="20" />
+    </Style>
+
 </ResourceDictionary>

@@ -2,3 +2,6 @@ EShop/obj/
 EShop/bin/
 EShop/EShop.csproj.user
 EShop/.vs
+/EShop.Core/obj
+/EShop.API/obj
+/EShop.UI/obj
