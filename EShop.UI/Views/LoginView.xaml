@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:EShop.Core.Models;assembly=EShop.Core"
+             xmlns:controls="clr-namespace:EShop.Core.CustomViews;assembly=EShop.Core"
+             x:Class="EShop.UI.Views.LoginView"
+             BackgroundColor="{StaticResource AppDarkBackgroundColor}">
+    <VerticalStackLayout VerticalOptions="Center">
+        <Border Style="{StaticResource LoginBorderStyle}">
+            <Grid RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Ellipse Style="{StaticResource CircularBadgeStyle}" />
+                <Label Style="{StaticResource MaterialIcons}"
+                       Text="{x:Static models:Icons.Fingerprint}"
+                       FontSize="65"
+                       FontAttributes="Bold"/>
+                <VerticalStackLayout Grid.Row="1" Spacing="10">
+                    <Label Text="Login EShop"
+                           Style="{StaticResource LabelTextPrimaryStyle}"
+                           FontSize="40"/>
+                    <Label Text="Enter your credentials to access your secure account."
+                           Style="{StaticResource LabelLightTextStyle}"
+                           FontSize="13"/>
+                    <Label Text="Email"
+                           Style="{StaticResource LabelTextWhiteStyle}"/>
+                    <controls:BorderedEntry Placeholder="Enter Your Email Address"
+                                            Style="{StaticResource AppEntryStyle}"/>
+                    <Label Text="Password"
+                           Style="{StaticResource LabelTextWhiteStyle}"/>
+                    <controls:BorderedEntry Placeholder="Enter Your Password"
+                                            IsPassword="True"
+                                            Style="{StaticResource AppEntryStyle}"/>
+                    <Label Text="Forgot Password?"
+                           Style="{StaticResource LabelTextPrimaryStyle}"
+                           HorizontalOptions="End"/>
+                </VerticalStackLayout>
+                <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
+                                       Grid.Row="2"
+                                       Text="Login"/>
+                <Label Text="Don't have an account? EShop"
+                       Style="{StaticResource LabelTextWhiteStyle}"
+                       Grid.Row="3"
+                       HorizontalOptions="Center"/>
+                <!--<Label Grid.Row="3">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Don't have an account? " Style="{StaticResource LabelLightTextStyle}"/>
+                            <Span Text="EShop" FontAttributes="Bold" Style="{StaticResource LabelTextPrimaryStyle}"/>
+                            <Span.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="GotoRegistration"/>
+                                </Span.GestureRecognizers>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>-->
+
+            </Grid>
+        </Border>
+    </VerticalStackLayout>
+</ContentView>

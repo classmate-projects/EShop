@@ -1,6 +1,6 @@
 ﻿namespace EShop.UI.ViewModels
 {
-    internal class WelcomePageViewModel
+    internal class UserRoleEntryViewModel
     {
     }
 }

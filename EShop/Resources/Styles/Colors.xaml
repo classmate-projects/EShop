@@ -9,10 +9,14 @@
     <Color x:Key="AppPrimaryColor">#F0D342</Color>
     <Color x:Key="AppLitePrimary">#F7EC6E</Color>
     <Color x:Key="AppSecondaryColorColor">#E1CD3C</Color>
+    
     <Color x:Key="AppBackgroundColor">#322C1B</Color>
     <Color x:Key="AppDarkBackgroundColor">#211D12</Color>
-    <Color x:Key="AppTextColor">#F3F3F2</Color>
+    
+    <Color x:Key="AppTextWhiteColor">#F3F3F2</Color>
+    <Color x:Key="AppTextBlackColor">#202020</Color>
     <Color x:Key="AppLightTextColor">#9E9C94</Color>
+    
     <Color x:Key="AppBorderStrockColor">#413A23</Color>
 
 </ResourceDictionary>

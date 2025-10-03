@@ -11,7 +11,7 @@ namespace EShop
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new WelcomePage());
+            return new Window(new UserRoleEntry());
         }
     }
 }
