@@ -29,8 +29,8 @@
         <Setter Property="Fill" Value="{StaticResource AppPrimaryColor}" />
         <Setter Property="Stroke" Value="{StaticResource AppBorderStrockColor}" />
         <Setter Property="StrokeThickness" Value="2" />
-        <Setter Property="WidthRequest" Value="100" />
-        <Setter Property="HeightRequest" Value="100" />
+        <Setter Property="WidthRequest" Value="75" />
+        <Setter Property="HeightRequest" Value="75" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EShop.UI.Views.CustomerRegistrationView"
              xmlns:models="clr-namespace:EShop.Core.Models;assembly=EShop.Core"
              xmlns:controls="clr-namespace:EShop.Core.CustomViews;assembly=EShop.Core"
-             x:Class="EShop.UI.Views.LoginView"
              BackgroundColor="{StaticResource AppDarkBackgroundColor}">
     <VerticalStackLayout VerticalOptions="Center">
         <Border Style="{StaticResource LoginBorderStyle}">
@@ -16,17 +16,21 @@
                 </Grid.RowDefinitions>
                 <Ellipse Style="{StaticResource CircularBadgeStyle}" />
                 <Label Style="{StaticResource MaterialIcons}"
-                       Text="{x:Static models:Icons.Fingerprint}"
+                       Text="{x:Static models:Icons.How_to_reg}"
                        FontSize="60"
                        FontAttributes="Bold"/>
                 <VerticalStackLayout Grid.Row="1" Spacing="10">
-                    <Label Text="Login EShop"
+                    <Label Text="Register EShop"
                            Style="{StaticResource LabelTextPrimaryStyle}"
                            FontSize="40"/>
-                    <Label Text="Enter your credentials to access your secure account."
+                    <Label Text="Enter your details to open your secure account."
                            Style="{StaticResource LabelLightTextStyle}"
                            HorizontalOptions="Center"
                            FontSize="13"/>
+                    <Label Text="Your Name"
+                           Style="{StaticResource LabelTextWhiteStyle}"/>
+                    <controls:BorderedEntry Placeholder="Enter Your Name Address"
+                                            Style="{StaticResource AppEntryStyle}"/>
                     <Label Text="Email"
                            Style="{StaticResource LabelTextWhiteStyle}"/>
                     <controls:BorderedEntry Placeholder="Enter Your Email Address"
@@ -36,29 +40,30 @@
                     <controls:BorderedEntry Placeholder="Enter Your Password"
                                             IsPassword="True"
                                             Style="{StaticResource AppEntryStyle}"/>
-                    <Label Text="Forgot Password?"
-                           Style="{StaticResource LabelTextPrimaryStyle}"
-                           HorizontalOptions="End"/>
+                    <Label Text="Confirm Password"
+                           Style="{StaticResource LabelTextWhiteStyle}"/>
+                    <controls:BorderedEntry Placeholder="Enter Your Password"
+                                            IsPassword="True"
+                                            Style="{StaticResource AppEntryStyle}"/>
                 </VerticalStackLayout>
                 <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
                                        Grid.Row="2"
-                                       Text="Login"/>
-                <Label Text="Don't have an account? Register"
+                                       Text="Register"/>
+                <Label Text="Don't have an account? Login"
                        Style="{StaticResource LabelTextWhiteStyle}"
                        Grid.Row="3"
                        HorizontalOptions="Center"/>
                 <!--<Label Grid.Row="3">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Don't have an account? " Style="{StaticResource LabelLightTextStyle}"/>
-                            <Span Text="EShop" FontAttributes="Bold" Style="{StaticResource LabelTextPrimaryStyle}"/>
-                            <Span.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="GotoRegistration"/>
-                                </Span.GestureRecognizers>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>-->
-
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Don't have an account? " Style="{StaticResource LabelLightTextStyle}"/>
+                                <Span Text="EShop" FontAttributes="Bold" Style="{StaticResource LabelTextPrimaryStyle}"/>
+                                <Span.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="GotoRegistration"/>
+                                    </Span.GestureRecognizers>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>-->
             </Grid>
         </Border>
     </VerticalStackLayout>

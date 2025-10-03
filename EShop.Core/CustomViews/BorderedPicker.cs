@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Controls.Shapes;
-
-namespace EShop.Core.CustomViews
+﻿namespace EShop.Core.CustomViews
 {
     public partial class BorderedPicker : ContentView
     {
@@ -92,47 +90,85 @@ namespace EShop.Core.CustomViews
             set => SetValue(TitleColorProperty, value);
         }
 
+        private readonly BorderedPickerDrawable _drawable;
+        private readonly Picker _picker;
+        private readonly GraphicsView _graphicsView;
+
         public BorderedPicker()
         {
-            var border = new Border
+            _drawable = new BorderedPickerDrawable();
+
+            _graphicsView = new GraphicsView
             {
-                StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(CornerRadius) },
-                Padding = new Thickness(8),
-                Content = new Picker
-                {
-                    BackgroundColor = Colors.Transparent
-                }
+                Drawable = _drawable
             };
 
-            var picker = (Picker)border.Content;
-            picker.ItemDisplayBinding = new Binding("Name");
-
-
-            // Bind border props
-            border.SetBinding(Border.StrokeProperty, new Binding(nameof(BorderColor), source: this));
-            border.SetBinding(Border.StrokeThicknessProperty, new Binding(nameof(BorderThickness), source: this));
-            ((RoundRectangle)border.StrokeShape).SetBinding(RoundRectangle.CornerRadiusProperty, new Binding(nameof(CornerRadius), source: this));
-
-            // Bind picker props
-            picker.SetBinding(Picker.ItemsSourceProperty, new Binding(nameof(ItemsSource), source: this));
-            picker.SetBinding(Picker.SelectedItemProperty, new Binding(nameof(SelectedItem), source: this, mode: BindingMode.TwoWay));
-            picker.SetBinding(Picker.TitleProperty, new Binding(nameof(Title), source: this));
-            picker.SetBinding(Picker.TextColorProperty, new Binding(nameof(TextColor), source: this));
-            picker.SetBinding(Picker.TitleColorProperty, new Binding(nameof(PlaceholderColor), source: this));
-            picker.SetBinding(Picker.TitleColorProperty, new Binding(nameof(TitleColor), source: this));
-
-            // Focus events to change border color
-            picker.Focused += (s, e) =>
+            _picker = new Picker
             {
-                border.Stroke = FocusBorderColor;
+                BackgroundColor = Colors.Transparent,
+                Margin = new Thickness(8),
+                ItemDisplayBinding = new Binding("Name")
             };
 
-            picker.Unfocused += (s, e) =>
+            _picker.SetBinding(Picker.ItemsSourceProperty, new Binding(nameof(ItemsSource), source: this));
+            _picker.SetBinding(Picker.SelectedItemProperty, new Binding(nameof(SelectedItem), source: this, mode: BindingMode.TwoWay));
+            _picker.SetBinding(Picker.TitleProperty, new Binding(nameof(Title), source: this));
+            _picker.SetBinding(Picker.TextColorProperty, new Binding(nameof(TextColor), source: this));
+            _picker.SetBinding(Picker.TitleColorProperty, new Binding(nameof(TitleColor), source: this));
+
+            _picker.Focused += (s, e) =>
             {
-                border.Stroke = BorderColor;
+                _drawable.IsFocused = true;
+                _graphicsView.Invalidate();
             };
 
-            Content = border;
+            _picker.Unfocused += (s, e) =>
+            {
+                _drawable.IsFocused = false;
+                _graphicsView.Invalidate();
+            };
+
+            var layout = new Grid();
+            layout.Children.Add(_graphicsView);
+            layout.Children.Add(_picker);
+
+            Content = layout;
+
         }
+        protected override void OnPropertyChanged(string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            if (propertyName == BorderColorProperty.PropertyName)
+                _drawable.BorderColor = BorderColor;
+            else if (propertyName == FocusBorderColorProperty.PropertyName)
+                _drawable.FocusBorderColor = FocusBorderColor;
+            else if (propertyName == BorderThicknessProperty.PropertyName)
+                _drawable.BorderThickness = (float)BorderThickness;
+            else if (propertyName == CornerRadiusProperty.PropertyName)
+                _drawable.CornerRadius = CornerRadius;
+
+            _graphicsView?.Invalidate();
+        }
+        public class BorderedPickerDrawable : IDrawable
+        {
+            public Color BorderColor { get; set; } = Colors.Gray;
+            public Color FocusBorderColor { get; set; } = Colors.DeepSkyBlue;
+            public float CornerRadius { get; set; } = 8f;
+            public float BorderThickness { get; set; } = 1f;
+            public bool IsFocused { get; set; } = false;
+
+            public void Draw(ICanvas canvas, RectF dirtyRect)
+            {
+                var strokeColor = IsFocused ? FocusBorderColor : BorderColor;
+                canvas.StrokeColor = strokeColor;
+                canvas.StrokeSize = BorderThickness;
+                canvas.FillColor = Colors.Transparent;
+
+                canvas.FillRoundedRectangle(dirtyRect, CornerRadius);
+                canvas.DrawRoundedRectangle(dirtyRect, CornerRadius);
+            }
+        }
+
     }
 }

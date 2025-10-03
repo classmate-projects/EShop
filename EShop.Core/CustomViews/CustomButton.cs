@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui.Controls.Shapes;
-using System.Globalization;
-
-namespace EShop.Core.CustomViews
+﻿namespace EShop.Core.CustomViews
 {
     public partial class CustomButton : ContentView
     {

@@ -5,8 +5,10 @@
              x:Class="EShop.UI.Pages.UserRoleEntry"
              Title="UserRoleEntry">
     <Grid>
-        <!--//<views:WelcomePage />-->
-        <views:LoginView />
+        <!--<views:WelcomePage />-->
+        <!--<views:LoginView />-->
         <!--<views:RestrationView />-->
+        <!--<views:CustomerRegistrationView/>-->
+        <views:SellerRegistrationView/>
     </Grid>
 </ContentPage>
