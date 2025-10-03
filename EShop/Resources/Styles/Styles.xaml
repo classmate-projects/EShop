@@ -16,4 +16,10 @@
         <Setter Property="Margin" Value="20" />
     </Style>
 
+    <Style TargetType="Label" x:Key="MaterialIcons" >
+        <Setter Property="FontFamily" Value="MaterialIcon" />
+        <Setter Property="TextColor" Value="{StaticResource AppTextColor}"/>
+        <Setter Property="FontSize" Value="24" />
+    </Style> 
+
 </ResourceDictionary>
