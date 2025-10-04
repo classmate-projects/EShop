@@ -2,8 +2,7 @@
 
 namespace EShop.UI.ViewModels
 {
-    public class UserRoleEntryViewModel : BaseViewModel
+    public class HomePageViewModel : BaseViewModel
     {
-
     }
 }
