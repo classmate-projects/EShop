@@ -17,8 +17,7 @@
                 <Ellipse Style="{StaticResource CircularBadgeStyle}" />
                 <Label Style="{StaticResource MaterialIcons}"
                        Text="{x:Static models:Icons.Barcode_reader}"
-                       FontSize="60"
-                       FontAttributes="Bold"/>
+                       FontSize="60"/>
                 <Label Style="{StaticResource LabelTextPrimaryStyle}"
                        Grid.Row="1"
                        Text="Welcome to EShop"
@@ -32,20 +31,68 @@
                 <VerticalStackLayout Grid.Row="3" 
                                      HorizontalOptions="Center" 
                                      Spacing="25">
-                    <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
-                                           Text="Start Shopping"
-                                           HorizontalOptions="Start"
-                                           WidthRequest="135"
-                                           HeightRequest="105"
-                                           Command="{Binding NavigateToLoginCommand}"
-                                           CommandParameter="Customer"/>
-                    <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
-                                           Text="Start Selling"
-                                           HorizontalOptions="End"
-                                           WidthRequest="135"
-                                           HeightRequest="105"
-                                           Command="{Binding NavigateToLoginCommand}" 
-                                           CommandParameter="Seller"/>
+                    <Border Style="{StaticResource AppCardBorderStyle}">
+                        <Grid HorizontalOptions="Center"
+                              VerticalOptions="Center"
+                              ColumnSpacing="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="170" />
+                                <ColumnDefinition Width="80" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Text="Start Shopping "
+                                   Style="{StaticResource LabelTextBlackStyle}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"/>
+                            <Label Style="{StaticResource MaterialIcons}"
+                                   Text="{x:Static models:Icons.Shopping_bag}"
+                                   FontSize="80"
+                                   Grid.Column="1"
+                                   Grid.RowSpan="2"/>
+                            <Label Style="{StaticResource LabelLightTextStyle}"
+                                   Text="To become a customer "
+                                   Grid.Row="1"
+                                   FontSize="15"/>
+                        </Grid>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToLoginCommand}"
+                                                  CommandParameter="Customer"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+                    <Border Style="{StaticResource AppCardBorderStyle}">
+                        <Grid HorizontalOptions="Center"
+                              VerticalOptions="Center"
+                              ColumnSpacing="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="170" />
+                                <ColumnDefinition Width="80" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Text="Start Selling "
+                                   Style="{StaticResource LabelTextBlackStyle}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"/>
+                            <Label Style="{StaticResource MaterialIcons}"
+                                   Text="{x:Static models:Icons.Store}"
+                                   FontSize="80"
+                                   Grid.Column="1"
+                                   Grid.RowSpan="2"/>
+                            <Label Style="{StaticResource LabelLightTextStyle}"
+                                   Text="To become a seller "
+                                   Grid.Row="1"
+                                   FontSize="15"/>
+                        </Grid>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateToLoginCommand}" 
+                                                  CommandParameter="Seller"/>
+                        </Border.GestureRecognizers>
+                    </Border>
                 </VerticalStackLayout>
             </Grid>
         </Border>

@@ -19,7 +19,7 @@
 
     <Style TargetType="Label" x:Key="MaterialIcons" >
         <Setter Property="FontFamily" Value="MaterialIcon" />
-        <Setter Property="TextColor" Value="{StaticResource AppTextWhiteColor}"/>
+        <Setter Property="TextColor" Value="{StaticResource AppBackgroundColor}"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
@@ -54,7 +54,8 @@
     
     <Style x:Key="LabelLightTextStyle" TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource AppLightTextColor}" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontAttributes" Value="Bold"/>
         <Setter Property="HorizontalOptions" Value="Start" />
         <Setter Property="VerticalOptions" Value="Center" />
     </Style>
@@ -77,6 +78,19 @@
         <Setter Property="TextColor" Value="{StaticResource AppLightTextColor}" />
         <Setter Property="BackgroundColor" Value="{StaticResource AppDarkBackgroundColor}" />
         <Setter Property="BorderColor" Value="{StaticResource AppBorderStrockColor}" />
+    </Style>
+
+    <Style x:Key="AppCardBorderStyle" TargetType="Border">
+        <Setter Property="Stroke" Value="{DynamicResource AppBorderStrockColor}" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="12" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="WidthRequest" Value="300" />
+        <Setter Property="HeightRequest" Value="125" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource AppPrimaryColor}" />
+        <Setter Property="Padding" Value="0" />
     </Style>
 
 </ResourceDictionary>
