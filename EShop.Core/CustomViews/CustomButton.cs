@@ -1,4 +1,6 @@
-﻿namespace EShop.Core.CustomViews
+﻿using System.Windows.Input;
+
+namespace EShop.Core.CustomViews
 {
     public partial class CustomButton : ContentView
     {
@@ -21,6 +23,13 @@
 
         public static readonly BindableProperty TextColorProperty =
             BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(CustomButton), Colors.Black, propertyChanged: OnVisualPropertyChanged);
+        
+        public static readonly BindableProperty CommandProperty =
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CustomButton), null);
+
+        public static readonly BindableProperty CommandParameterProperty =
+            BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(CustomButton), null);
+
 
         public Color BackgroundColor
         {
@@ -33,6 +42,18 @@
             get => (Color)GetValue(BorderColorProperty);
             set => SetValue(BorderColorProperty, value);
         }
+        public ICommand Command
+        {
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        public object CommandParameter
+        {
+            get => GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
+        }
+
 
         public float BorderThickness
         {
@@ -70,7 +91,13 @@
             };
 
             var tapGesture = new TapGestureRecognizer();
-            tapGesture.Tapped += (s, e) => Clicked?.Invoke(this, EventArgs.Empty);
+            tapGesture.Tapped += (s, e) =>
+            {
+                Clicked?.Invoke(this, EventArgs.Empty);
+
+                if (Command?.CanExecute(CommandParameter) == true)
+                    Command.Execute(CommandParameter);
+            };
             graphicsView.GestureRecognizers.Add(tapGesture);
 
             Content = graphicsView;

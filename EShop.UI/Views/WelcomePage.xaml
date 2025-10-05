@@ -7,9 +7,8 @@
              BackgroundColor="{StaticResource AppDarkBackgroundColor}">
     <VerticalStackLayout VerticalOptions="Center">
         <Border Style="{StaticResource LoginBorderStyle}">
-            <Grid RowSpacing="10">
+            <Grid RowSpacing="15">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -30,12 +29,24 @@
                        Style="{StaticResource LabelLightTextStyle}"
                        FontSize="13"
                        Margin="0,0,0,30"/>
-                <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
-                                   Grid.Row="3"
-                                   Text="Start Selling"/>
-                <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
-                                   Grid.Row="4"
-                                   Text="Start Shopping"/>
+                <VerticalStackLayout Grid.Row="3" 
+                                     HorizontalOptions="Center" 
+                                     Spacing="25">
+                    <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
+                                           Text="Start Shopping"
+                                           HorizontalOptions="Start"
+                                           WidthRequest="135"
+                                           HeightRequest="105"
+                                           Command="{Binding NavigateToLoginCommand}"
+                                           CommandParameter="Customer"/>
+                    <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
+                                           Text="Start Selling"
+                                           HorizontalOptions="End"
+                                           WidthRequest="135"
+                                           HeightRequest="105"
+                                           Command="{Binding NavigateToLoginCommand}" 
+                                           CommandParameter="Seller"/>
+                </VerticalStackLayout>
             </Grid>
         </Border>
     </VerticalStackLayout>
