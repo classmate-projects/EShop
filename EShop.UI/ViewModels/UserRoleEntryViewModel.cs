@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using EShop.Core.BaseLibrary;
 using EShop.Core.Enums;
 using System.Windows.Input;
