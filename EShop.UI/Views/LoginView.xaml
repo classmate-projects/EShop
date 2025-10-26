@@ -42,6 +42,7 @@
                 </VerticalStackLayout>
                 <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
                                        Grid.Row="2"
+                                       Command="{Binding LoginCommand}"
                                        Text="Login"/>
                 <Label Grid.Row="3"
                        Style="{StaticResource LabelTextPrimaryStyle}">

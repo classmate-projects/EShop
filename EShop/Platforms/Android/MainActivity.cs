@@ -11,7 +11,8 @@ namespace EShop
         Android.Content.Intent.CategoryDefault,
         Android.Content.Intent.CategoryBrowsable
     },
-    DataScheme = "eshop"
+    DataScheme = "eshop",
+    DataHost = "callback"
 )]
 
     public class MainActivity : MauiAppCompatActivity
