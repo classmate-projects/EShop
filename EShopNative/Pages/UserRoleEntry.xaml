@@ -4,7 +4,8 @@
              x:Class="EShopNative.Pages.UserRoleEntry"
              BackgroundColor="{StaticResource AppDarkBackgroundColor}"
              xmlns:converters="clr-namespace:EShopNative.Converters"
-             xmlns:views="clr-namespace:EShopNative.Views">
+             xmlns:views="clr-namespace:EShopNative.Views"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <converters:EnumToVisibilityConverter x:Key="EnumToBoolConverter" />
     </ContentPage.Resources>

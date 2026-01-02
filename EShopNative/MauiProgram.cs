@@ -1,4 +1,5 @@
-﻿using EShop;
+﻿using CommunityToolkit.Maui;
+using EShop;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
@@ -12,6 +13,7 @@ namespace EShopNative
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("MaterialIcons-Regular.ttf", "MaterialIcon");
@@ -56,6 +58,7 @@ namespace EShopNative
 
 #if DEBUG
             builder.Logging.AddDebug();
+            builder.Logging.AddConsole();
 #endif
 
             return builder.Build();

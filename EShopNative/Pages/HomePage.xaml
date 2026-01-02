@@ -2,10 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EShopNative.Pages.HomePage"
-             BackgroundColor="{StaticResource AppDarkBackgroundColor}">
+             BackgroundColor="{StaticResource AppDarkBackgroundColor}"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:views="clr-namespace:EShopNative.Views">
     <VerticalStackLayout>
-        <Label Text="Welcome to Home Page!"
-               VerticalOptions="Center" 
-               HorizontalOptions="Center" />
+        <views:CustomNavBar Title="Eshop"
+                        BackCommand="{Binding GoBackCommand}"
+                        MenuCommand="{Binding OpenMenuCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
