@@ -4,9 +4,9 @@ namespace EShopNative.Pages;
 
 public partial class UserRoleEntry : ContentPage
 {
-	public UserRoleEntry()
+	public UserRoleEntry(UserRoleEntryViewModel vm)
 	{
 		InitializeComponent();
-        BindingContext = new UserRoleEntryViewModel();
+        BindingContext = vm;
     }
 }

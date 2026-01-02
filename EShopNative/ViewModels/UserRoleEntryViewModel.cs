@@ -1,8 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using EShopNative.BaseLibrary;
 using EShopNative.Enums;
+using EShopNative.Models;
 using EShopNative.Pages;
 using EShopNative.Services;
+using Supabase;
 using System.Windows.Input;
 
 namespace EShopNative.ViewModels
@@ -10,6 +14,8 @@ namespace EShopNative.ViewModels
     public partial class UserRoleEntryViewModel : BaseViewModel
     {
         private readonly AuthService _authService = new();
+        private readonly Client _supabase;
+
         public string Email { get; set; }
         public string Password { get; set; }
 
@@ -23,12 +29,13 @@ namespace EShopNative.ViewModels
 
 
 
-        public UserRoleEntryViewModel()
+        public UserRoleEntryViewModel(Client supabase)
         {
+            _supabase = supabase;
             CurrentView = AppViewState.Welcome;
             NavigateToRegistrationCommand = new Command(NavigateToRegistration);
             NavigateToLoginCommand = new Command<string>(async (role) => await NavigateToLogin(role));
-            LoginCommand = new Command(async () => await UserLogin(Preferences.Get("UserRole", "Guest")));
+            LoginCommand = new Command(async () => await UserLogin(Email, Password));
         }
 
         private void NavigateToRegistration()
@@ -58,18 +65,15 @@ namespace EShopNative.ViewModels
             }
 
         }
-        private async Task UserLogin(string role)
+        public async Task<AppAuth?> UserLogin(string email, string password)
         {
-            var result = await _authService.LoginAsync(Email, Password);
-
-            if (result.IsSuccess)
+            try
             {
-                await Application.Current.MainPage.DisplayAlert("Success", "Login successful", "OK");
-                Application.Current.MainPage = new NavigationPage(new HomePage());
+                return null;
             }
-            else
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", result.ErrorMessage, "OK");
+                return null;
             }
 
         }
