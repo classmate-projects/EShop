@@ -15,42 +15,43 @@
                 </Grid.RowDefinitions>
                 <Ellipse Style="{StaticResource CircularBadgeStyle}" />
                 <Label Style="{StaticResource MaterialIcons}"
-                   Text="{x:Static models:Icons.Fingerprint}"
-                   FontSize="60"
-                   FontAttributes="Bold"/>
+               Text="{x:Static models:Icons.How_to_reg}"
+               FontSize="60"
+               FontAttributes="Bold"/>
                 <VerticalStackLayout Grid.Row="1" Spacing="10">
-                    <Label Text="Login EShop"
-                       Style="{StaticResource LabelTextPrimaryStyle}"
-                       FontSize="40"/>
-                    <Label Text="Enter your credentials to access your secure account."
-                       Style="{StaticResource LabelLightTextStyle}"
-                       HorizontalOptions="Center"
-                       FontSize="13"/>
-                    <Label Text="Email"
-                       Style="{StaticResource LabelTextWhiteStyle}"/>
-                    <controls:BorderedEntry Placeholder="Enter Your Email Address"
+                    <Label Text="Register EShop Customer"
+                   Style="{StaticResource LabelTextPrimaryStyle}"
+                   FontSize="40"/>
+                    <Label Text="Join our community by creating a new Eshop seller account."
+                   Style="{StaticResource LabelLightTextStyle}"
+                   HorizontalOptions="Center"
+                   FontSize="13"/>
+                    <controls:BorderedEntry Placeholder="Your Shop Name"
+                                        Text="{Binding Name}"
                                         Style="{StaticResource AppEntryStyle}"/>
-                    <Label Text="Password"
-                       Style="{StaticResource LabelTextWhiteStyle}"/>
-                    <controls:BorderedEntry Placeholder="Enter Your Password"
+                    <controls:BorderedEntry Placeholder="Registered Email Address"
+                                        Style="{StaticResource AppEntryStyle}"/>
+                    <controls:BorderedEntry Placeholder="Your Password"
                                         IsPassword="True"
+                                        Text="{Binding Password}"
                                         Style="{StaticResource AppEntryStyle}"/>
-                    <Label Text="Forgot Password?"
-                       Style="{StaticResource LabelTextPrimaryStyle}"
-                       HorizontalOptions="End"/>
+                    <controls:BorderedEntry Placeholder="Confirm Your Password"
+                                        IsPassword="True"
+                                        Text="{Binding ConfirmPassword}"
+                                        Style="{StaticResource AppEntryStyle}"/>
                 </VerticalStackLayout>
                 <controls:CustomButton Style="{StaticResource PrimaryButtonStyle}"
                                    Grid.Row="2"
-                                   Command="{Binding LoginCommand}"
-                                   Text="Login"/>
+                                   Text="Register"
+                                   Command="{Binding RegistrationCommand}"/>
                 <Label Grid.Row="3"
-                   Style="{StaticResource LabelTextPrimaryStyle}">
+               Style="{StaticResource LabelTextPrimaryStyle}">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="You don't have an account " />
-                            <Span Text="Register" FontAttributes="Bold" >
+                            <Span Text="Already have an account " />
+                            <Span Text="Login" FontAttributes="Bold" >
                                 <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding NavigateToRegistrationCommand}" />
+                                    <TapGestureRecognizer Command="{Binding NavigateToLoginCommand}" CommandParameter="CustomerLogin"/>
                                 </Span.GestureRecognizers>
                             </Span>
                         </FormattedString>
