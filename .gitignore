@@ -1,11 +1,4 @@
-EShop/obj/
-EShop/bin/
-EShop/EShop.csproj.user
-EShop/.vs
-/EShop.Core/obj
-/EShop.Core/bin/Debug
-/EShop.API/obj
-/EShop.API/bin/Debug
-/EShop.UI/obj
-/EShop.UI/bin/Debug
-/EShop.UI/EShop.UI.csproj.user
+EShopNative/bin/
+EShopNative/.vs/
+EShopNative/obj/
+EShopNative/EShopNative.csproj.user

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:EShopNative.CustomViews">
+
+    <Style x:Key="LoginBorderStyle" TargetType="Border">
+        <Setter Property="Stroke" Value="{StaticResource AppBorderStrockColor}" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="12" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="{StaticResource AppBackgroundColor}" />
+        <Setter Property="Padding" Value="25" />
+        <Setter Property="Margin" Value="20" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="MaterialIcons" >
+        <Setter Property="FontFamily" Value="MaterialIcon" />
+        <Setter Property="TextColor" Value="{StaticResource AppBackgroundColor}"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style TargetType="Ellipse" x:Key="CircularBadgeStyle">
+        <Setter Property="Fill" Value="{StaticResource AppPrimaryColor}" />
+        <Setter Property="Stroke" Value="{StaticResource AppBorderStrockColor}" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="WidthRequest" Value="75" />
+        <Setter Property="HeightRequest" Value="75" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style TargetType="controls:CustomButton" x:Key="PrimaryButtonStyle">
+        <Setter Property="BackgroundColor" Value="{StaticResource AppLitePrimary}" />
+        <Setter Property="BorderColor" Value="{StaticResource AppBorderStrockColor}" />
+        <Setter Property="TextColor" Value="{StaticResource AppTextBlackColor}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="HeightRequest" Value="50" />
+    </Style>
+
+    <Style x:Key="LabelTextPrimaryStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource AppPrimaryColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="LabelLightTextStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource AppLightTextColor}" />
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="LabelTextWhiteStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource AppTextWhiteColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="LabelTextBlackStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource AppTextBlackColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="AppEntryStyle" TargetType="controls:BorderedEntry">
+        <Setter Property="TextColor" Value="{StaticResource AppLightTextColor}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource AppDarkBackgroundColor}" />
+        <Setter Property="BorderColor" Value="{StaticResource AppBorderStrockColor}" />
+    </Style>
+
+    <Style x:Key="AppCardBorderStyle" TargetType="Border">
+        <Setter Property="Stroke" Value="{DynamicResource AppBorderStrockColor}" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="12" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="WidthRequest" Value="300" />
+        <Setter Property="HeightRequest" Value="125" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource AppPrimaryColor}" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+</ResourceDictionary>
