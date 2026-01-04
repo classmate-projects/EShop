@@ -1,11 +1,8 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.ComponentModel;
 using EShopNative.BaseLibrary;
 using EShopNative.Enums;
-using EShopNative.Models;
 using EShopNative.Services;
-using Supabase;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 
@@ -14,7 +11,6 @@ namespace EShopNative.ViewModels
     public partial class UserRoleEntryViewModel : BaseViewModel
     {
         private readonly AuthService _authService = new();
-        private readonly Client _supabase;
 
         public string Name { get; set; }
         public string Email { get; set; }
@@ -41,9 +37,8 @@ namespace EShopNative.ViewModels
         public ICommand RegistrationCommand { get; }
 
 
-        public UserRoleEntryViewModel(Client supabase)
+        public UserRoleEntryViewModel()
         {
-            _supabase = supabase;
             CurrentView = AppViewState.Welcome;
             NavigateToRegistrationCommand = new Command(NavigateToRegistration);
             NavigateToLoginCommand = new Command<string>(async (role) => await NavigateToLogin(role));
@@ -78,19 +73,19 @@ namespace EShopNative.ViewModels
             }
 
         }
-        public async Task<AppAuth?> UserLogin(string email, string password)
+        public async Task UserLogin(string email, string password)
         {
             try
             {
-                return null;
+                return;
             }
             catch (Exception ex)
             {
-                return null;
+                return;
             }
         }
 
-        public async Task<AppAuth?> UserSignUP(string name, string email, string password, string confirmPassword)
+        public async Task UserSignUP(string name, string email, string password, string confirmPassword)
         {
             try
             {
@@ -101,7 +96,7 @@ namespace EShopNative.ViewModels
                     string.IsNullOrWhiteSpace(confirmPassword))
                 {
                     await Toast.Make("Please fill in all fields.", ToastDuration.Short).Show();
-                    return null;
+                    return;
                 }
 
                 
@@ -109,7 +104,7 @@ namespace EShopNative.ViewModels
                 if (password.Length < 6)
                 {
                     await Toast.Make("Password must be at least 6 characters.", ToastDuration.Short).Show();
-                    return null;
+                    return;
                 }
 
                 // Step 1c: Validate email format
@@ -117,7 +112,7 @@ namespace EShopNative.ViewModels
                 if (!Regex.IsMatch(email, emailPattern))
                 {
                     await Toast.Make("Invalid email format.", ToastDuration.Short).Show();
-                    return null;
+                    return;
                 }
 
 
@@ -125,14 +120,14 @@ namespace EShopNative.ViewModels
                 if (password != confirmPassword)
                 {
                     await Toast.Make("Passwords do not match.", ToastDuration.Short).Show();
-                    return null;
+                    return;
                 }
-                return null;
+                return;
             }
             catch (Exception ex)
             {
                 await Toast.Make($"Registration failed: {ex.Message}", ToastDuration.Long).Show();
-                return null;
+                return;
             }
         }
     }

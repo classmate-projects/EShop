@@ -1,12 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using EShop;
-using EShopNative.BaseLibrary;
-using EShopNative.ViewModels;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
-using System.Reflection;
 
 namespace EShopNative
 {
@@ -26,23 +22,6 @@ namespace EShopNative
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
-            // Load secrets from UserSecrets
-            builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), optional: true);
-            var url = "https://rzaruttlxttwcdrvdzll.supabase.co";
-            var key = "sb_publishable_xN7i9pocdOioMUGuOb3kRw_MKd1JoiC";
-
-            Console.WriteLine($"Supabase URL: {url}");
-            Console.WriteLine($"Supabase Key: {key}");
-
-
-            // Initialize Supabase
-            _ = SupabaseConfig.InitializeAsync(url, key);
-
-
-            // Dependency Injection
-            builder.Services.AddSingleton(SupabaseConfig.SupabaseClient);
-            builder.Services.AddTransient<UserRoleEntryViewModel>();
 
             // Custom UI Handlers
             ConfigureCustomHandlers();
