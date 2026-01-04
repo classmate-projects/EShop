@@ -1,13 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using EShopNative.BaseLibrary;
 using EShopNative.Enums;
+using EShopNative.Pages;
+using EShopNative.Services;
 using System.Windows.Input;
 
 namespace EShopNative.ViewModels
 {
     public partial class UserRoleEntryViewModel : BaseViewModel
     {
-        private readonly AuthService.AuthService _authService;
+        private readonly AuthService _authService = new();
+        public string Email { get; set; }
+        public string Password { get; set; }
+
 
         [ObservableProperty]
         private AppViewState currentView;
@@ -20,7 +25,6 @@ namespace EShopNative.ViewModels
 
         public UserRoleEntryViewModel()
         {
-            _authService = new AuthService.AuthService();
             CurrentView = AppViewState.Welcome;
             NavigateToRegistrationCommand = new Command(NavigateToRegistration);
             NavigateToLoginCommand = new Command<string>(async (role) => await NavigateToLogin(role));
@@ -56,27 +60,16 @@ namespace EShopNative.ViewModels
         }
         private async Task UserLogin(string role)
         {
-            var authService = new AuthService.AuthService();
-            var profile = await _authService.LoginAsync();
+            var result = await _authService.LoginAsync(Email, Password);
 
-            if (profile != null)
+            if (result.IsSuccess)
             {
-                // Optional: store profile in memory or Preferences
-                Preferences.Set("user_id", profile.KeycloakUserId);
-                Preferences.Set("display_name", profile.DisplayName);
-                Preferences.Set("is_shop_owner", profile.IsShopOwner);
-
-                // Navigate based on role
-                //if (profile.IsShopOwner)
-                //await Shell.Current.GoToAsync("//ShopDashboard");
-                //else
-                //await Shell.Current.GoToAsync("//CustomerDashboard");
-                // Implement your login logic here based on the role
-                await Application.Current.MainPage.DisplayAlert("Login", $"Logging in as {role}", "OK");
+                await Application.Current.MainPage.DisplayAlert("Success", "Login successful", "OK");
+                Application.Current.MainPage = new NavigationPage(new HomePage());
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Login Failed", "Unable to authenticate.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", result.ErrorMessage, "OK");
             }
 
         }

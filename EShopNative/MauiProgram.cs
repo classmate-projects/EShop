@@ -18,6 +18,7 @@ namespace EShopNative
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
             #region Handlers
             EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
             {
@@ -33,7 +34,6 @@ namespace EShopNative
     handler.PlatformView.BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
 #endif
             });
-
             PickerHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
             {
 #if ANDROID
