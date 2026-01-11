@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using EShopNative.BaseLibrary;
+using EShopNative.DataTransferObject;
 using EShopNative.Enums;
+using EShopNative.Pages;
 using EShopNative.Services;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -10,7 +12,7 @@ namespace EShopNative.ViewModels
 {
     public partial class UserRoleEntryViewModel : BaseViewModel
     {
-        private readonly AuthService _authService = new();
+        private readonly AuthService _authService;
 
         public string Name { get; set; }
         public string Email { get; set; }
@@ -37,8 +39,11 @@ namespace EShopNative.ViewModels
         public ICommand RegistrationCommand { get; }
 
 
-        public UserRoleEntryViewModel()
+        public UserRoleEntryViewModel(AuthService authService)
         {
+            _authService = authService;
+
+
             CurrentView = AppViewState.Welcome;
             NavigateToRegistrationCommand = new Command(NavigateToRegistration);
             NavigateToLoginCommand = new Command<string>(async (role) => await NavigateToLogin(role));
@@ -73,17 +78,35 @@ namespace EShopNative.ViewModels
             }
 
         }
-        public async Task UserLogin(string email, string password)
+        private async Task UserLogin(string email, string password)
         {
-            try
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
+                await Application.Current.MainPage.DisplayAlert("Error", "Email and password are required", "OK");
                 return;
             }
-            catch (Exception ex)
+
+            var request = new LoginRequest
             {
+                Email = email,
+                Password = password
+            };
+
+            var (isSuccess, message, user) = await _authService.LoginAsync(request);
+
+            if (!isSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login Failed", message, "OK");
                 return;
             }
+
+            // Success
+            await Application.Current.MainPage.DisplayAlert("Success", "Login successful", "OK");
+
+            // Navigate to next page
+            await Shell.Current.GoToAsync(nameof(HomePage));
         }
+
 
         public async Task UserSignUP(string name, string email, string password, string confirmPassword)
         {
