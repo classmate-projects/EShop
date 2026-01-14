@@ -25,7 +25,7 @@ namespace EShopNative.Services
             var content = new StringContent(json, Encoding.UTF8);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await _httpClient.PostAsync("/api/user/login", content);
+            var response = await _httpClient.PostAsync("/eshop/user/login", content);
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
