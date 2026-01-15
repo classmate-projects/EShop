@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using EShop;
+using EShopNative.Pages;
+using EShopNative.Services;
+using EShopNative.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
@@ -8,6 +11,8 @@ namespace EShopNative
 {
     public static class MauiProgram
     {
+        public static IServiceProvider ServiceProvider { get; private set; }
+
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -26,10 +31,21 @@ namespace EShopNative
             // Custom UI Handlers
             ConfigureCustomHandlers();
 
+            // Register your services
+            builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddTransient<UserRoleEntryViewModel>();
+            builder.Services.AddTransient<UserRoleEntry>();
+
+
 #if DEBUG
             builder.Logging.AddDebug();
             builder.Logging.AddConsole();
 #endif
+            // Build the app FIRST
+            var app = builder.Build();
+
+            // Store the DI container
+            ServiceProvider = app.Services;
 
             return builder.Build();
         }

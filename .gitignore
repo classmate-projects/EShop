@@ -1,4 +1,4 @@
-EShopNative/bin/
-EShopNative/.vs/
-EShopNative/obj/
-EShopNative/EShopNative.csproj.user
+bin/
+.vs/
+obj/
+EShopNative.csproj.user
