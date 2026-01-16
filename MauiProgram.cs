@@ -33,9 +33,8 @@ namespace EShopNative
 
             // Register your services
             builder.Services.AddSingleton<AuthService>();
-            builder.Services.AddTransient<UserRoleEntryViewModel>();
             builder.Services.AddTransient<UserRoleEntry>();
-
+            builder.Services.AddTransient<UserRoleEntryViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

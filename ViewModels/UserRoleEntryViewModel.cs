@@ -99,12 +99,14 @@ namespace EShopNative.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Login Failed", message, "OK");
                 return;
             }
+            else
+            {
+                // Success
+                await Application.Current.MainPage.DisplayAlert("Success", "Login successful", "OK");
 
-            // Success
-            await Application.Current.MainPage.DisplayAlert("Success", "Login successful", "OK");
-
-            // Navigate to next page
-            await Shell.Current.GoToAsync(nameof(HomePage));
+                // Navigate to next page
+                await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+            }   
         }
 
 
@@ -122,7 +124,6 @@ namespace EShopNative.ViewModels
                     return;
                 }
 
-                
                 // Step 1b: Validate password strength
                 if (password.Length < 6)
                 {
@@ -138,13 +139,26 @@ namespace EShopNative.ViewModels
                     return;
                 }
 
-
                 // Step 2: Confirm password
                 if (password != confirmPassword)
                 {
                     await Toast.Make("Passwords do not match.", ToastDuration.Short).Show();
                     return;
                 }
+                var request = new RegisterRequest
+                {
+                    Username = email,
+                    Email = email,
+                    Password = password,
+                    FullName = name,
+                };
+                var result = await _authService.RegisterAsync(request);
+
+                if (result == "Registration successful")
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                }
+
                 return;
             }
             catch (Exception ex)

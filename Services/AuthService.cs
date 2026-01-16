@@ -1,8 +1,10 @@
 ﻿using EShopNative.BaseLibrary;
 using EShopNative.DataTransferObject;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 
 namespace EShopNative.Services
@@ -38,6 +40,18 @@ namespace EShopNative.Services
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             return (true, result?.Message ?? "Login successful", result?.User);
+        }
+        public async Task<string> RegisterAsync(RegisterRequest request)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/auth/register", request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                return $"Error: {error}";
+            }
+
+            return "Registration successful";
         }
     }
 }
