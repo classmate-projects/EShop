@@ -21,13 +21,19 @@ namespace EShopNative.Services
             };
         }
 
+        public class RegisterResponse
+        {
+            public string? Message { get; set; }
+            public List<string>? Errors { get; set; }
+        }
+
         public async Task<(bool IsSuccess, string Message, UserDto User)> LoginAsync(LoginRequest request)
         {
             var json = JsonSerializer.Serialize(request);
             var content = new StringContent(json, Encoding.UTF8);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await _httpClient.PostAsync("/eshop/user/login", content);
+            var response = await _httpClient.PostAsync("eshop/user/login", content);
 
             var responseBody = await response.Content.ReadAsStringAsync();
 
@@ -41,17 +47,28 @@ namespace EShopNative.Services
 
             return (true, result?.Message ?? "Login successful", result?.User);
         }
-        public async Task<string> RegisterAsync(RegisterRequest request)
+        public async Task<RegisterResponse> RegisterAsync(RegisterRequest request)
         {
-            var response = await _httpClient.PostAsJsonAsync("api/auth/register", request);
+            var response = await _httpClient.PostAsJsonAsync("eshop/user/register", request);
+            var json = await response.Content.ReadAsStringAsync();
+
+            var result = JsonSerializer.Deserialize<RegisterResponse>(json,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (!response.IsSuccessStatusCode)
             {
-                var error = await response.Content.ReadAsStringAsync();
-                return $"Error: {error}";
+                return new RegisterResponse
+                {
+                    Message = "Registration failed",
+                    Errors = result?.Errors ?? new List<string> { "Unknown error occurred" }
+                };
             }
 
-            return "Registration successful";
+            return new RegisterResponse
+            {
+                Message = result?.Message ?? "Registration successful",
+                Errors = null
+            };
         }
     }
 }
