@@ -7,6 +7,7 @@ using EShopNative.Pages;
 using EShopNative.Services;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using static EShopNative.Services.AuthService;
 
 namespace EShopNative.ViewModels
 {
@@ -88,7 +89,7 @@ namespace EShopNative.ViewModels
 
             var request = new LoginRequest
             {
-                Email = email,
+                Username = email,
                 Password = password
             };
 
@@ -145,6 +146,7 @@ namespace EShopNative.ViewModels
                     await Toast.Make("Passwords do not match.", ToastDuration.Short).Show();
                     return;
                 }
+
                 var request = new RegisterRequest
                 {
                     Username = email,
@@ -152,19 +154,30 @@ namespace EShopNative.ViewModels
                     Password = password,
                     FullName = name,
                 };
-                var result = await _authService.RegisterAsync(request);
 
-                if (result == "Registration successful")
+                var response = await _authService.RegisterAsync(request);
+
+                // NEW: Handle backend validation errors
+                if (response.Errors != null && response.Errors.Any())
                 {
+                    string errorMessage = string.Join("\n", response.Errors);
+                    await Toast.Make(errorMessage, ToastDuration.Long).Show();
+                    return;
+                }
+
+                // NEW: Handle success message
+                if (response.Message == "Registration successful")
+                {
+                    await Toast.Make("Registration successful!", ToastDuration.Short).Show();
                     await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
                 }
 
-                return;
+                // Fallback
+                await Toast.Make("Unexpected response from server.", ToastDuration.Short).Show();
             }
             catch (Exception ex)
             {
                 await Toast.Make($"Registration failed: {ex.Message}", ToastDuration.Long).Show();
-                return;
             }
         }
     }
