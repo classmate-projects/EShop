@@ -7,6 +7,7 @@ using EShopNative.Pages;
 using EShopNative.Services;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using static EShopNative.Services.AuthService;
 
 namespace EShopNative.ViewModels
 {
@@ -88,7 +89,7 @@ namespace EShopNative.ViewModels
 
             var request = new LoginRequest
             {
-                Email = email,
+                Username = email,
                 Password = password
             };
 
@@ -99,12 +100,14 @@ namespace EShopNative.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Login Failed", message, "OK");
                 return;
             }
+            else
+            {
+                // Success
+                await Application.Current.MainPage.DisplayAlert("Success", "Login successful", "OK");
 
-            // Success
-            await Application.Current.MainPage.DisplayAlert("Success", "Login successful", "OK");
-
-            // Navigate to next page
-            await Shell.Current.GoToAsync(nameof(HomePage));
+                // Navigate to next page
+                await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+            }   
         }
 
 
@@ -122,7 +125,6 @@ namespace EShopNative.ViewModels
                     return;
                 }
 
-                
                 // Step 1b: Validate password strength
                 if (password.Length < 6)
                 {
@@ -138,19 +140,44 @@ namespace EShopNative.ViewModels
                     return;
                 }
 
-
                 // Step 2: Confirm password
                 if (password != confirmPassword)
                 {
                     await Toast.Make("Passwords do not match.", ToastDuration.Short).Show();
                     return;
                 }
-                return;
+
+                var request = new RegisterRequest
+                {
+                    Username = email,
+                    Email = email,
+                    Password = password,
+                    FullName = name,
+                };
+
+                var response = await _authService.RegisterAsync(request);
+
+                // NEW: Handle backend validation errors
+                if (response.Errors != null && response.Errors.Any())
+                {
+                    string errorMessage = string.Join("\n", response.Errors);
+                    await Toast.Make(errorMessage, ToastDuration.Long).Show();
+                    return;
+                }
+
+                // NEW: Handle success message
+                if (response.Message == "Registration successful")
+                {
+                    await Toast.Make("Registration successful!", ToastDuration.Short).Show();
+                    await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                }
+
+                // Fallback
+                await Toast.Make("Unexpected response from server.", ToastDuration.Short).Show();
             }
             catch (Exception ex)
             {
                 await Toast.Make($"Registration failed: {ex.Message}", ToastDuration.Long).Show();
-                return;
             }
         }
     }
