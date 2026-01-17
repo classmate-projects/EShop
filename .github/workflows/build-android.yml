@@ -1,0 +1,66 @@
+name: Build MAUI Android & Windows (net10)
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      PROJECT_PATH: EShop/EShop/EShopNative.csproj
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup Java (Temurin 11)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+
+      - name: Install MAUI workload and restore
+        run: |
+          dotnet workload install maui
+          dotnet workload restore ${{ env.PROJECT_PATH }}
+
+      - name: Restore NuGet packages
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+
+      # Decode keystore only for trusted events (push to main or tags)
+      - name: Decode Android keystore
+        if: github.event_name == 'push' && (startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/tags/'))
+        shell: pwsh
+        run: |
+          $b = [System.Convert]::FromBase64String("${{ secrets.ANDROID_KEYSTORE_BASE64 }}")
+          [System.IO.File]::WriteAllBytes("eshop.keystore", $b)
+
+      - name: Build Android APK (unsigned for PRs; signed for main)
+        shell: pwsh
+        run: |
+          $signProps = ""
+          if ($env:GITHUB_EVENT_NAME -eq 'push' -and ($env:GITHUB_REF -like 'refs/heads/main' -or $env:GITHUB_REF -like 'refs/tags/*')) {
+            $signProps = "/p:AndroidKeyStore=true /p:AndroidSigningKeyStore=eshop.keystore /p:AndroidSigningKeyAlias=${{ secrets.ANDROID_KEY_ALIAS }} /p:AndroidSigningKeyPass=${{ secrets.ANDROID_KEY_ALIAS_PASSWORD }} /p:AndroidSigningStorePass=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}"
+          }
+          dotnet publish ${{ env.PROJECT_PATH }} -c Release -f net10.0-android /p:AndroidPackageFormat=apk $signProps
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: |
+            **/bin/Release/net10.0-android/**/*.apk
+
+      - name: Remove keystore
+        if: github.event_name == 'push' && (startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/tags/'))
+        shell: pwsh
+        run: Remove-Item -Force eshop.keystore -ErrorAction SilentlyContinue
