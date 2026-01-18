@@ -53,7 +53,7 @@ jobs:
       - name: Upload Signed APK
         uses: actions/upload-artifact@v4
         with:
-          name: signed-apk
+          name: eshop-apk
           path: "bin/Release/net10.0-android/publish/*.apk"
 
       - name: Cleanup keystore
