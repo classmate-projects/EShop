@@ -1,0 +1,19 @@
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      PROJECT_PATH: EShop/EShopNative.csproj
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show repo layout
+        shell: pwsh
+        run: |
+          echo "Repo structure:"
+          Get-ChildItem -Recurse
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
