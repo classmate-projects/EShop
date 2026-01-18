@@ -1,21 +1,20 @@
-﻿using EShopNative;
-using EShopNative.Pages;
-using EShopNative.ViewModels;
+﻿using EShopNative.Pages;
 
 namespace EShop
 {
     public partial class App : Application
     {
-        public App()
+        private readonly IServiceProvider _services;
+        public App(IServiceProvider services)
         {
             InitializeComponent();
+            _services = services;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            var page = MauiProgram.ServiceProvider.GetService<UserRoleEntry>();
-            return new Window(page);
+            var page = _services.GetRequiredService<UserRoleEntry>();
+            return new Window(new NavigationPage(page));
         }
-
     }
 }

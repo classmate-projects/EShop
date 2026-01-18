@@ -11,8 +11,6 @@ namespace EShopNative
 {
     public static class MauiProgram
     {
-        public static IServiceProvider ServiceProvider { get; private set; }
-
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -32,6 +30,7 @@ namespace EShopNative
             ConfigureCustomHandlers();
 
             // Register your services
+            builder.Services.AddSingleton<App>();
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddTransient<UserRoleEntry>();
             builder.Services.AddTransient<UserRoleEntryViewModel>();
@@ -42,10 +41,6 @@ namespace EShopNative
 #endif
             // Build the app FIRST
             var app = builder.Build();
-
-            // Store the DI container
-            ServiceProvider = app.Services;
-
             return builder.Build();
         }
 
