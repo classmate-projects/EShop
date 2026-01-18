@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: windows-latest
     env:
-      PROJECT_PATH: EShop/EShop/EShopNative.csproj
+      PROJECT_PATH: EShop/EShopNative.csproj
 
     steps:
       - uses: actions/checkout@v4
