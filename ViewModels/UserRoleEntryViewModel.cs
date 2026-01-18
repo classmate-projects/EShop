@@ -15,10 +15,10 @@ namespace EShopNative.ViewModels
     {
         private readonly AuthService _authService;
 
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
 
         private AppViewState _currentView;
         public AppViewState CurrentView
@@ -65,8 +65,13 @@ namespace EShopNative.ViewModels
         {
             if (role.ToString() == "Customer" || role.ToString() == "Seller")
             {
-                bool confirm = await Application.Current.MainPage.
-                DisplayAlert("Confirm Role", $"You selected '{role}' as your role. Do you want to proceed?", "Yes", "No");
+                var page = Application.Current?.Windows.FirstOrDefault()?.Page;
+
+                if (page is null)
+                    return; // or handle gracefully
+
+                bool confirm = await page.DisplayAlertAsync("Confirm Role",$"You selected '{role}' as your role. Do you want to proceed?","Yes","No");
+
                 if (confirm)
                 {
                     Preferences.Set("UserRole", role);
@@ -83,9 +88,16 @@ namespace EShopNative.ViewModels
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Email and password are required", "OK");
+                var page = Application.Current?.Windows.FirstOrDefault()?.Page;
+
+                if (page is null)
+                    return; // fallback safety
+
+                await page.DisplayAlertAsync("Error","Email and password are required","OK");
+
                 return;
             }
+
 
             var request = new LoginRequest
             {
@@ -97,17 +109,29 @@ namespace EShopNative.ViewModels
 
             if (!isSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Login Failed", message, "OK");
+                var page = Application.Current?.Windows.FirstOrDefault()?.Page;
+
+                if (page is null)
+                    return;
+
+                await page.DisplayAlertAsync("Login Failed",message,"OK");
                 return;
             }
+
             else
             {
                 // Success
-                await Application.Current.MainPage.DisplayAlert("Success", "Login successful", "OK");
+                var page = Application.Current?.Windows.FirstOrDefault()?.Page;
+
+                if (page is null)
+                    return;
+
+                await page.DisplayAlertAsync("Success","Login successful","OK");
 
                 // Navigate to next page
-                await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
-            }   
+                await page.Navigation.PushAsync(new HomePage());
+
+            }
         }
 
 
@@ -168,8 +192,14 @@ namespace EShopNative.ViewModels
                 // NEW: Handle success message
                 if (response.Message == "Registration successful")
                 {
-                    await Toast.Make("Registration successful!", ToastDuration.Short).Show();
-                    await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                    await Toast.Make("Registration successful!", ToastDuration.Short).Show(); 
+                    var page = Application.Current?.Windows.FirstOrDefault()?.Page;
+
+                    if (page is null)
+                        return;
+
+                    await page.Navigation.PushAsync(new HomePage());
+
                 }
 
                 // Fallback

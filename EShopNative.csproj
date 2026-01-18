@@ -15,8 +15,13 @@
     <!-- App Info -->
     <ApplicationTitle>EShopNative</ApplicationTitle>
     <ApplicationId>com.companyname.eshopnative</ApplicationId>
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>0.0.0</ApplicationDisplayVersion>
+	  
+	<WindowsPackageVersion>1.0.0.0</WindowsPackageVersion>
+	  
+	<CFBundleShortVersionString>0.0.0</CFBundleShortVersionString>
+	<CFBundleVersion>1</CFBundleVersion>
 
     <!-- Windows -->
     <WindowsPackageType>None</WindowsPackageType>
