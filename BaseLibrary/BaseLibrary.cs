@@ -11,7 +11,8 @@ namespace EShopNative.BaseLibrary
     }
     public class ApiEndpoints
     {
-        public const string Login = "eshop/user/login";
-        public const string Registration = "eshop/user/register";
+        public const string Login = "auth/login";
+        public const string Registration = "auth/register";
+        public const string RefreshToken = "auth/refresh";
     }
 }
