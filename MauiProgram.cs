@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Maui;
 using EShop;
+using EShopNative.BaseLibrary;
 using EShopNative.Pages;
 using EShopNative.Services;
 using EShopNative.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
+using System.Net.Http.Headers;
 
 namespace EShopNative
 {
@@ -26,14 +28,29 @@ namespace EShopNative
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            // Register HttpClient
+            builder.Services.AddHttpClient<AuthService>(async client =>
+            {
+                client.BaseAddress = new Uri(AppConstants.BaseApiUrl);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await SecureStorage.GetAsync("AccessToken"));
+            });
+
+
+            // Register ViewModels
+            builder.Services.AddTransient<UserRoleEntryViewModel>();
+            builder.Services.AddTransient<HomePageViewModel>();
+
+            // Register Pages
+            builder.Services.AddTransient<UserRoleEntry>();
+            builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<RegisterPage>();
+
             // Custom UI Handlers
             ConfigureCustomHandlers();
 
             // Register your services
             builder.Services.AddSingleton<App>();
             builder.Services.AddSingleton<AuthService>();
-            builder.Services.AddTransient<UserRoleEntry>();
-            builder.Services.AddTransient<UserRoleEntryViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();
