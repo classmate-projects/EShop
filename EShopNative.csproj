@@ -16,11 +16,11 @@
     <ApplicationTitle>EShopNative</ApplicationTitle>
     <ApplicationId>com.companyname.eshopnative</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
-    <ApplicationDisplayVersion>0.0</ApplicationDisplayVersion>
+    <ApplicationDisplayVersion>0.1</ApplicationDisplayVersion>
 	  
-	<WindowsPackageVersion>1.0.0</WindowsPackageVersion>
+	<WindowsPackageVersion>1.0.1</WindowsPackageVersion>
 	  
-	<CFBundleShortVersionString>0.0</CFBundleShortVersionString>
+	<CFBundleShortVersionString>0.1</CFBundleShortVersionString>
 	<CFBundleVersion>1</CFBundleVersion>
 
     <!-- Windows -->
@@ -99,6 +99,11 @@
     <Folder Include="Converters\" />
     <Folder Include="Enums\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Pages\RegisterPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>
