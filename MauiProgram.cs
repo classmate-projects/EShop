@@ -41,8 +41,9 @@ namespace EShopNative
             builder.Services.AddTransient<UserRoleEntryViewModel>();
             builder.Services.AddTransient<HomePageViewModel>();
 
-            // Register Navigation Service
+            // Register Services
             builder.Services.AddSingleton<INavigationService, NavigationService>();
+            builder.Services.AddSingleton<IAlertService, AlertService>();
 
             // Register Pages
             builder.Services.AddTransient<UserRoleEntry>();
@@ -52,7 +53,7 @@ namespace EShopNative
             // Custom UI Handlers
             ConfigureCustomHandlers();
 
-            // Register your services
+            // Register the App class
             builder.Services.AddSingleton<App>();
             builder.Services.AddSingleton<AuthService>();
 

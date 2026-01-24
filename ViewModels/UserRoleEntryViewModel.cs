@@ -14,6 +14,8 @@ namespace EShopNative.ViewModels
         private readonly AuthService _auth;
         private readonly IServiceProvider _services; 
         private readonly INavigationService _nav;
+        private readonly IAlertService _alert;
+
 
         private string _email = string.Empty;
         public string Email
@@ -29,11 +31,12 @@ namespace EShopNative.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-        public UserRoleEntryViewModel(AuthService auth, IServiceProvider services, INavigationService nav)
+        public UserRoleEntryViewModel(AuthService auth, IServiceProvider services, INavigationService nav, IAlertService alert)
         {
             _auth = auth;
             _services = services;
-            _nav = nav;
+            _nav = nav; 
+            _alert = alert;
         }
 
         [RelayCommand]
@@ -47,7 +50,7 @@ namespace EShopNative.ViewModels
 
             if (result == null)
             {
-                await WindowHelper.GetCurrentPage().DisplayAlertAsync("Error", "Invalid login", "OK");
+                await _alert.ShowError("Invalid login");
                 return;
             }
 
