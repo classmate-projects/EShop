@@ -2,9 +2,14 @@
 
 namespace EShopNative.BaseLibrary
 {
-    public class BaseViewModel : ObservableObject
+    public partial class BaseViewModel : ObservableObject
     {
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
+        private bool _isBusy;
+        public bool IsNotBusy => !IsBusy;
     }
+
     public class AppConstants
     {
         public const string BaseApiUrl = "https://eshopapi-a6haa8b6azg4bqc7.centralindia-01.azurewebsites.net";

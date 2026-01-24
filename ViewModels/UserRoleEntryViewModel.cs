@@ -43,32 +43,37 @@ namespace EShopNative.ViewModels
         [RelayCommand]
         public async Task Login()
         {
-            var result = await _auth.Login(new LoginRequest
-            {
-                Email = _email,
-                Password = _password
-            });
-
-            if (result == null)
-            {
-                await _alert.ShowError("Invalid login");
+            if (IsBusy)
                 return;
-            }
 
-            if (!string.IsNullOrEmpty(result.AccessToken))
+            try
             {
+                IsBusy = true;
+
+                var result = await _auth.Login(new LoginRequest
+                {
+                    Email = _email,
+                    Password = _password
+                });
+
+                if (result == null)
+                {
+                    await _alert.ShowError("Invalid login");
+                    return;
+                }
+
                 await SecureStorage.SetAsync("AccessToken", result.AccessToken);
-            }
-
-            if (!string.IsNullOrEmpty(result.RefreshToken))
-            {
                 await SecureStorage.SetAsync("RefreshToken", result.RefreshToken);
+
+                var homePage = _services.GetRequiredService<HomePage>();
+                await _nav.PushAsync(homePage);
             }
-
-
-            var homePage = _services.GetRequiredService<HomePage>();
-            await _nav.PushAsync(homePage);
+            finally
+            {
+                IsBusy = false;
+            }
         }
+
 
         [RelayCommand]
         public async Task GoToRegister()
