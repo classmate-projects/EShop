@@ -5,6 +5,9 @@
              BackgroundColor="{StaticResource AppDarkBackgroundColor}"
              NavigationPage.HasNavigationBar="False">
     <VerticalStackLayout>
-        <Label Text="hello"/>
+        <Button Text="Logout"
+                Command="{Binding LogoutCommand}"
+                BackgroundColor="Red"
+                TextColor="White" />
     </VerticalStackLayout>
 </ContentPage>

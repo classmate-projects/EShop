@@ -40,5 +40,11 @@ namespace EShopNative.Services
 
             return await response.Content.ReadFromJsonAsync<AuthResponse>();
         }
+        public Task LogoutAsync()
+        {
+            SecureStorage.Remove("AccessToken");
+            SecureStorage.Remove("RefreshToken");
+            return Task.CompletedTask;
+        }
     }
 }
