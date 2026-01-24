@@ -29,7 +29,10 @@ namespace EShopNative.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-        public UserRoleEntryViewModel(AuthService auth, IServiceProvider services, INavigationService nav, IAlertService alert)
+        public UserRoleEntryViewModel(AuthService auth,
+                                      IServiceProvider services, 
+                                      INavigationService nav, 
+                                      IAlertService alert)
         {
             _auth = auth;
             _services = services;
@@ -74,16 +77,6 @@ namespace EShopNative.ViewModels
             await _nav.PushAsync(registerPage);
         }
 
-        [RelayCommand]
-        public async Task Logout()
-        {
-            await _auth.LogoutAsync();
-
-            var loginPage = _services.GetRequiredService<UserRoleEntry>();
-            await _nav.SetRootPage(loginPage);
-
-            await _alert.ShowSuccess("You have been logged out.");
-        }
 
     }
 }           
