@@ -7,6 +7,8 @@ namespace EShopNative.Services
     {
         public Task PushAsync(Page page)
         {
+            var idle = ServiceHelper.GetService<IdleTimeoutService>();
+            idle.ResetTimer();
             return WindowHelper.GetCurrentPage().Navigation.PushAsync(page);
         }
 

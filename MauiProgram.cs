@@ -7,6 +7,7 @@ using EShopNative.Services;
 using EShopNative.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
+using Microsoft.Maui.LifecycleEvents;
 using Microsoft.Maui.Platform;
 using System.Net.Http.Headers;
 
@@ -44,6 +45,8 @@ namespace EShopNative
             // Register Services
             builder.Services.AddSingleton<INavigationService, NavigationService>();
             builder.Services.AddSingleton<IAlertService, AlertService>();
+            builder.Services.AddSingleton<ISessionManager, SessionManager>();
+            builder.Services.AddSingleton<IdleTimeoutService>();
 
             // Register Pages
             builder.Services.AddTransient<UserRoleEntry>();
