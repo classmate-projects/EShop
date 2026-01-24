@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using EShop;
 using EShopNative.BaseLibrary;
+using EShopNative.Interfaces;
 using EShopNative.Pages;
 using EShopNative.Services;
 using EShopNative.ViewModels;
@@ -39,6 +40,9 @@ namespace EShopNative
             // Register ViewModels
             builder.Services.AddTransient<UserRoleEntryViewModel>();
             builder.Services.AddTransient<HomePageViewModel>();
+
+            // Register Navigation Service
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
 
             // Register Pages
             builder.Services.AddTransient<UserRoleEntry>();
