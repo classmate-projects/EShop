@@ -20,4 +20,5 @@ namespace EShopNative.BaseLibrary
         public const string Registration = "auth/register";
         public const string RefreshToken = "auth/refresh";
     }
+
 }

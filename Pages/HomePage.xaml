@@ -5,11 +5,20 @@
              BackgroundColor="{StaticResource AppDarkBackgroundColor}"
              NavigationPage.HasNavigationBar="False"
              xmlns:views="clr-namespace:EShopNative.CustomViews">
-    <VerticalStackLayout>
-        <Button Text="Logout"
-                Command="{Binding LogoutCommand}"
-                BackgroundColor="Red"
-                TextColor="White" />
+    <Grid>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Welcome!" FontSize="28" HorizontalOptions="Center" />
+            <Label Text="{Binding UserName}" FontSize="20" HorizontalOptions="Center" />
+
+            <Button Text="Logout"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    Command="{Binding LogoutCommand}"
+                    IsEnabled="{Binding IsNotBusy}" />
+
+        </VerticalStackLayout>
+
         <views:LoadingOverlay />
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

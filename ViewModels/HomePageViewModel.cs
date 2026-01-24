@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using EShopNative.BaseLibrary;
 using EShopNative.Interfaces;
@@ -13,26 +14,48 @@ namespace EShopNative.ViewModels
         private readonly IServiceProvider _services;
         private readonly INavigationService _nav;
         private readonly IAlertService _alert;
+        private readonly ISessionManager _session;
+
+        [ObservableProperty]
+        private string userName;
 
         public HomePageViewModel(AuthService auth, 
                                  IServiceProvider services, 
                                  INavigationService nav, 
-                                 IAlertService alert)
+                                 IAlertService alert,
+                                 ISessionManager session)
         {
             _auth = auth;
             _services = services;
+            _session = session;
             _nav = nav;
             _alert = alert;
+
+            userName = session.CurrentUser?.Email ?? "User";
         }
+
         [RelayCommand]
         public async Task Logout()
         {
-            await _auth.LogoutAsync();
+            if (IsBusy)
+                return;
 
-            var loginPage = _services.GetRequiredService<UserRoleEntry>();
-            await _nav.SetRootPage(loginPage);
+            try
+            {
+                IsBusy = true;
 
-            await _alert.ShowSuccess("You have been logged out.");
+                await _session.ClearSessionAsync();
+
+                var loginPage = _services.GetRequiredService<UserRoleEntry>();
+                await _nav.SetRootPage(loginPage);
+
+                await _alert.ShowSuccess("Logged out successfully");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
+
     }
 }

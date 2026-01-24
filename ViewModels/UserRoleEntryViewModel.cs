@@ -13,6 +13,7 @@ namespace EShopNative.ViewModels
         private readonly IServiceProvider _services; 
         private readonly INavigationService _nav;
         private readonly IAlertService _alert;
+        private readonly ISessionManager _session;
 
 
         private string _email = string.Empty;
@@ -32,12 +33,14 @@ namespace EShopNative.ViewModels
         public UserRoleEntryViewModel(AuthService auth,
                                       IServiceProvider services, 
                                       INavigationService nav, 
-                                      IAlertService alert)
+                                      IAlertService alert,
+                                      ISessionManager session)
         {
             _auth = auth;
             _services = services;
             _nav = nav; 
             _alert = alert;
+            _session = session;
         }
 
         [RelayCommand]
@@ -62,8 +65,17 @@ namespace EShopNative.ViewModels
                     return;
                 }
 
-                await SecureStorage.SetAsync("AccessToken", result.AccessToken);
-                await SecureStorage.SetAsync("RefreshToken", result.RefreshToken);
+                if (result.User == null)
+                {
+                    await _alert.ShowError("Invalid user data received");
+                    return;
+                }
+
+                await _session.SaveSessionAsync(
+                    result.AccessToken,
+                    result.RefreshToken,
+                    result.User
+                );
 
                 var homePage = _services.GetRequiredService<HomePage>();
                 await _nav.PushAsync(homePage);
@@ -73,7 +85,6 @@ namespace EShopNative.ViewModels
                 IsBusy = false;
             }
         }
-
 
         [RelayCommand]
         public async Task GoToRegister()

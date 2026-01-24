@@ -9,5 +9,4 @@
         Task PopModalAsync();
         Task SetRootPage(Page page);
     }
-
 }
