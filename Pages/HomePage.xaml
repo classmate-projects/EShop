@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EShopNative.Pages.HomePage"
              BackgroundColor="{StaticResource AppDarkBackgroundColor}"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:views="clr-namespace:EShopNative.CustomViews">
     <VerticalStackLayout>
         <Button Text="Logout"
                 Command="{Binding LogoutCommand}"
                 BackgroundColor="Red"
                 TextColor="White" />
+        <views:LoadingOverlay />
     </VerticalStackLayout>
 </ContentPage>
