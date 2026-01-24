@@ -1,8 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using EShopNative.BaseLibrary;
 using EShopNative.DataTransferObject;
-using EShopNative.Helper;
 using EShopNative.Interfaces;
 using EShopNative.Pages;
 using EShopNative.Services;
@@ -75,5 +73,17 @@ namespace EShopNative.ViewModels
             var registerPage = _services.GetRequiredService<RegisterPage>();
             await _nav.PushAsync(registerPage);
         }
+
+        [RelayCommand]
+        public async Task Logout()
+        {
+            await _auth.LogoutAsync();
+
+            var loginPage = _services.GetRequiredService<UserRoleEntry>();
+            await _nav.SetRootPage(loginPage);
+
+            await _alert.ShowSuccess("You have been logged out.");
+        }
+
     }
 }           
